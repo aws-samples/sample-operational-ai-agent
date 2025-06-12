@@ -14,7 +14,7 @@
 > ⚠️ **IMPORTANT SECURITY NOTICE**: This experimental prototype contains autonomous agents. For security reasons, only deploy and run in isolated sandbox environments with appropriate approvals. Never use in production systems or with access to sensitive resources. ⚠️
 
 ## Project Overview
-OASIS demonstrates how AI agents can revolutionize IT operations by automating complex incident management workflows. Built using Amazon Bedrock and the STRADS agent framework, it showcases autonomous agents handling real-world operational scenarios through advanced log and metric analysis. The system leverages OpenSearch for comprehensive monitoring, enabling agents to detect anomalies, correlate events across services, and provide data-driven incident resolution with minimal human intervention.
+OASIS demonstrates how AI agents can revolutionize IT operations by automating complex incident management workflows. Built using Amazon Bedrock and the Strands agent framework, it showcases autonomous agents handling real-world operational scenarios through advanced log and metric analysis. The system leverages OpenSearch for comprehensive monitoring, enabling agents to detect anomalies, correlate events across services, and provide data-driven incident resolution with minimal human intervention.
 
 ### Why This Prototype Matters
 - Demonstrates end-to-end incident management automation
