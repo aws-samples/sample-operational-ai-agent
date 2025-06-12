@@ -1,0 +1,37 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/oasis*:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "es:ESHttpGet",
+                "es:ESHttpPost"
+            ],
+            "Resource": "arn:aws:es:*:*:domain/oasis*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "es:ESHttpPut",
+                "es:ESHttpDelete"
+            ],
+            "Resource": "arn:aws:es:*:*:domain/oasis-*/app-logs-*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "aoss:APIAccessAll"
+            ],
+            "Resource": "arn:aws:aoss:*:*:collection/oasis*"
+        }
+    ]
+}

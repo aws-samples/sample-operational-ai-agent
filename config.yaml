@@ -1,0 +1,116 @@
+# Simulation Configuration
+simulation:
+  duration_minutes: 60
+  log_rate_per_second: 10
+  metrics_interval_seconds: 10
+
+# Service Definitions
+services:
+  - name: api-gateway
+    type: gateway
+    error_probability: 0.05
+    latency_base_ms: 20
+    latency_variance_ms: 10
+    dependencies:
+      - auth-service
+      - product-service
+  
+  - name: auth-service
+    type: microservice
+    error_probability: 0.08
+    latency_base_ms: 50
+    latency_variance_ms: 20
+    dependencies:
+      - user-db
+  
+  - name: product-service
+    type: microservice
+    error_probability: 0.06
+    latency_base_ms: 30
+    latency_variance_ms: 15
+    dependencies:
+      - product-db
+      - cache-service
+  
+  - name: user-db
+    type: database
+    error_probability: 0.04
+    latency_base_ms: 5
+    latency_variance_ms: 3
+    dependencies: []
+  
+  - name: product-db
+    type: database
+    error_probability: 0.05
+    latency_base_ms: 8
+    latency_variance_ms: 4
+    dependencies: []
+  
+  - name: cache-service
+    type: cache
+    error_probability: 0.06
+    latency_base_ms: 2
+    latency_variance_ms: 1
+    dependencies: []
+
+# Anomaly Patterns
+anomaly_patterns:
+  - name: http_500_spike
+    type: error_rate
+    service: api-gateway
+    error_rate_multiplier: 20
+    duration_minutes: 10
+    trigger_probability: 0.15
+  
+  - name: auth_service_latency
+    type: latency
+    service: auth-service
+    latency_multiplier: 8
+    duration_minutes: 12
+    trigger_probability: 0.12
+  
+  - name: db_connection_failure
+    type: connection_failure
+    service: product-db
+    error_message: Connection timeout to database
+    duration_minutes: 8
+    trigger_probability: 0.08
+  
+  - name: cache_service_crash_loop
+    type: crash_loop
+    service: cache-service
+    restart_count: 8
+    duration_minutes: 15
+    trigger_probability: 0.07
+  
+  - name: memory_leak
+    type: resource_exhaustion
+    service: product-service
+    resource_type: memory
+    growth_rate: 1.5
+    duration_minutes: 20
+    trigger_probability: 0.09
+  
+  - name: cpu_spike
+    type: resource_exhaustion
+    service: auth-service
+    resource_type: cpu
+    utilization_max: 98
+    duration_minutes: 12
+    trigger_probability: 0.08
+  
+  - name: network_partition
+    type: error_rate
+    service: api-gateway
+    error_message: Network partition detected
+    error_rate_multiplier: 15
+    duration_minutes: 6
+    trigger_probability: 0.07
+  
+  - name: database_deadlock
+    type: error_rate
+    service: user-db
+    error_message: Database deadlock detected
+    error_rate_multiplier: 12
+    duration_minutes: 4
+    trigger_probability: 0.06
